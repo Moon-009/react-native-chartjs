@@ -1,0 +1,23 @@
+{
+  "name": "react-native-chartjs",
+  "version": "1.0.0",
+  "description": "use chart.js library in react native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KittyCookie/react-native-chartjs.git"
+  },
+  "keywords": [
+    "react-native",
+    "chartjs"
+  ],
+  "author": "kittycookie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KittyCookie/react-native-chartjs/issues"
+  },
+  "homepage": "https://github.com/KittyCookie/react-native-chartjs#readme"
+}
