@@ -2,56 +2,61 @@ import React, {
 	Component,
 } from 'react';
 import {
-	View,
 	WebView,
-	Text,
 	StyleSheet
 } from 'react-native';
 import PropTypes from 'prop-types';
-
+/**
+ * 渲染图表脚本的模版，设置时将CONFIG参数替换成对应的值
+ * @type {[string]}
+ */
+var settingChartScript = `
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var myChart = new Chart( ctx, {CONFIG} );
+`;
 
 export default class Chart extends Component {
+	
 	static propTypes = {
+		/**
+		 * 图表配置参数，对应chart.js中初始化需要的参数
+		 * @type {[object]}
+		 */
 		chartConfiguration: PropTypes.object.isRequired
 	}
 	constructor(props) {
 		super(props);
-
-	}
-	componentDidMount() {
 	}
 	componentWillReceiveProps(nextProps) {
-		this.setChart( nextProps.chartConfiguration );
+		if( nextProps.chartConfiguration !== this.props.chartConfiguration ){
+			this.setChart(nextProps.chartConfiguration);
+		}
 	}
 	setChart(chartConfiguration) {
-		this.webview && this.webview.injectJavaScript(`
-			var ctx = document.getElementById("myChart").getContext('2d');
-			var myChart = new Chart(ctx, ` + JSON.stringify( chartConfiguration ) +  
-    `);`);
+		if( !chartConfiguration ){
+			return ;
+		}
+		this.webview && this.webview.injectJavaScript( settingChartScript.replace('{CONFIG}', JSON.stringify( chartConfiguration )));
 	}
 
 	render() {
-		return (
-				< WebView style = {
-					{
-						flex: 1
+		return ( < WebView style={{ flex : 1 }}
+					ref = {
+						ref => this.webview = ref
 					}
-				}
-				ref = {
-					ref => this.webview = ref
-				}
-				injectedJavaScript = {'window.postMessage("")'}
-				source = {
-					require("./dist/index.html")
-				}
-				onMessage = {() => {
-					this.setChart( this.props.chartConfiguration )
-				}}
-				onError = {
-					(error) => {
-						console.log(error)
+					injectedJavaScript = {
+						settingChartScript.replace( '{CONFIG}', JSON.stringify( this.props.chartConfiguration ))
 					}
-				}
+					source = {
+						require('./dist/index.html')
+					}
+					
+					onError = {
+						(error) => {
+							console.log(error)
+						}
+					}
+					scalesPageToFit = { true }
 				/>	
 		)
 	}
