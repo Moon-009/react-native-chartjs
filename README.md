@@ -66,7 +66,8 @@ export default class App extends Component < {} > {
       <View style = {{ flex : 1 }}>    
           <Chart chartConfiguration = {
             this.state.chartConfiguration
-          }/>  
+          }
+	   defaultFontSize={20}/>  
       </View> 
     );
   }
