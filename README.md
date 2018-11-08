@@ -73,3 +73,4 @@ export default class App extends Component < {} > {
   }
 }
 ```
+TIPS:在安卓release版本中会出现白屏，解决方法参见https://github.com/KittyCookie/react-native-chartjs/issues/3#issuecomment-435967111
