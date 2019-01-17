@@ -3,7 +3,8 @@ import React, {
 } from 'react';
 import {
 	WebView,
-	StyleSheet
+	StyleSheet,
+	Platform
 } from 'react-native';
 import PropTypes from 'prop-types';
 /**
@@ -64,7 +65,8 @@ export default class Chart extends Component {
 							console.log(error)
 						}
 					}
-					scalesPageToFit = { true }
+					// scalesPageToFit false for IOS and true for Android
+                                        scalesPageToFit={Platform.OS === 'ios' ? false : true}
 				/>	
 		)
 	}
