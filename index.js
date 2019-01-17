@@ -56,9 +56,7 @@ export default class Chart extends Component {
 						settingChartScript.replace( '{CONFIG}', JSON.stringify( this.props.chartConfiguration ))
 							.replace('{DEFAULT_FONT_SIZE}', defaultFontSize )
 					}
-					source = {
-						require('./dist/index.html')
-					}
+					source= {Platform.OS == 'ios' ? require('./dist/index.html') : {uri: "file:///android_asset/dist/index.html"}}
 					
 					onError = {
 						(error) => {
