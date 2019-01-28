@@ -2,10 +2,12 @@ import React, {
 	Component,
 } from 'react';
 import {
-	WebView,
-	StyleSheet
+	StyleSheet,
+	Platform
 } from 'react-native';
 import PropTypes from 'prop-types';
+
+import { WebView } from 'react-native-webview';
 /**
  * 渲染图表脚本的模版，设置时将CONFIG参数替换成对应的值
  * @type {[string]}
@@ -48,6 +50,7 @@ export default class Chart extends Component {
 	render() {
 		const defaultFontSize = this.props.defaultFontSize ? this.props.defaultFontSize : 12;
 		return ( < WebView style={{ flex : 1 }}
+					originWhitelist={["*"]}
 					ref = {
 						ref => this.webview = ref
 					}
@@ -55,9 +58,8 @@ export default class Chart extends Component {
 						settingChartScript.replace( '{CONFIG}', JSON.stringify( this.props.chartConfiguration ))
 							.replace('{DEFAULT_FONT_SIZE}', defaultFontSize )
 					}
-					source = {
-						require('./dist/index.html')
-					}
+					source= {Platform.OS == 'ios' ? require('./dist/index.html') : {uri: "file:///android_asset/dist/index.html"}}
+					
 					
 					onError = {
 						(error) => {
