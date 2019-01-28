@@ -1,6 +1,4 @@
 # react-native-chartjs
-TODO:
-change react native's webview to react-native-webview
 用法：
 将表格的参数作为chartConfiguration传入
 示例代码：
@@ -75,4 +73,3 @@ export default class App extends Component < {} > {
   }
 }
 ```
-TIPS:在安卓release版本中会出现白屏，解决方法参见https://github.com/KittyCookie/react-native-chartjs/issues/3#issuecomment-435967111
