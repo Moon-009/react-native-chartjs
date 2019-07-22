@@ -31,12 +31,20 @@ export default class Chart extends Component {
 	constructor(props) {
 		super(props);
 	}
-	componentWillReceiveProps(nextProps) {
-		if( nextProps.chartConfiguration !== this.props.chartConfiguration
-			|| nextProps.defaultFontSize !== this.props.defaultFontSize ){
-			this.setChart(nextProps.chartConfiguration, nextProps.defaultFontSize );
+
+	static getDerivedStateFromProps(props, state) {
+		const propsChanged = props.chartConfiguration !== state.chartConfiguration || props.defaultFontSize !== state.defaultFontSize;
+
+		if (propsChanged) {
+			return {
+				chartConfiguration: props.chartConfiguration,
+				defaultFontSize: props.defaultFontSize
+			}
 		}
+
+		return null;
 	}
+
 	setChart(chartConfiguration, defaultFontSize) {
 		if( !chartConfiguration || undefined == defaultFontSize || null == defaultFontSize ){
 			return ;
