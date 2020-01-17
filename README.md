@@ -1,3 +1,5 @@
+抱歉最近没有时间维护此组件，给大家带来的不便敬请谅解。
+Sorry for no time to maintain the component in time.
 # react-native-chartjs
 用法：
 将表格的参数作为chartConfiguration传入
